@@ -5,44 +5,43 @@ stages:
   if: branch = master AND type = push AND tag is blank
 - name: github
   if: branch = master AND type = push AND tag is blank
-
 jobs:
   include:
   - stage: test
     language: node_js
     node_js:
-      - lts/*
+    - lts/*
     dist: xenial
     install:
-      - npm i
+    - npm i
     script:
-      - npm run build
-      - npm test
+    - npm test
+    - npm run lint
   - stage: npm
     language: node_js
     node_js:
-      - lts/*
+    - lts/*
     dist: xenial
     install:
-      - npm i
-    script:
-      - npm run build
+    - npm i
     deploy:
       provider: npm
       email: npm@parasrah.com
+      api_key:
+        secure: DbfFnI2xZR66CF3hVP0zWLBKBKf4RypzkhLp4cMu0cHvD/VC5Vr365PzHZMu6Hexhh6P4PwsIwrZTa/JgmOtiMmzQ+JM9thbbbiaQxPOdlh2YGYsxtBrVW+dTQtYn+bA8cp1YsWTA7iiUdpAytyEYR9aUqm2jYnykEXCq3PHqfhH7FKNJdA67U6gOOerCC2btol9S3wyy7Zo3iXkvOoA3Z8S8YP9PEOmo1EnW4Y2SfO3cxgWnySFdnQoElnTjQ9hz5XS2CZCk1VcFykh55hpEkrA1oXlr453SwXsIw6ZiJ7ZuQc0RTqa0RKcbnxQNkmI2oWAuuCPOQ60URQcJY6R7K4iL/WiMRBQV2RGYNCc0AybbrNtjxSJQteScy8O4T1yVW3R69vO08XspYWn+ZOpSPJuZNw/OR0VDAIjtjW2kNpOq107qcubkBtSVnub59ybB+EHBNfVd36xxZ2J/GhavYWwiu+pbjcT5ovEUyOUjrHTpoQzAWGeU64Y+0BDkGbzT6RxEscoSQV/zQtO74wG66th7ShYRyaF1OlJFHWqsAdIGdMzaGGQGmaUCnpokWauDvIT4v2iuyDGvIjYKBE2E8UtMalMSLzNIf+3gSbV72Cz4LN0s4gvvsWTp04CHns8ru3cTHa6TS4Ohk4qrPe6cCLtFlPyvng+ZkeXKEZji2k=
       skip_cleanup: true
   - stage: github
     language: node_js
     node_js:
-      - lts/*
+    - lts/*
     dist: xenial
     install: npm i
-    script: npm run build
     before_deploy:
-      - export TRAVIS_TAG=$(npm run version | tail -n1)
-      - git tag $TRAVIS_TAG
+    - export TRAVIS_TAG=$(npm run version | tail -n1)
+    - git tag $TRAVIS_TAG
     deploy:
       provider: releases
-      file_glob: true
+      api_key:
+        secure: BoCaoJ2v4/ROCHiWMTr8Sn6/0sD9q4lTlw1njFBnmXpMIgroZ3Yiwy+FBvGEe9rfYZ1hd7AlpZ+8IInUsinivlcdVA+QovGjDehxdblbTr3/iR8MyoQvo45Zs44gnaThLw5aZcu6rKkwTHSdD7pUio07XWv0E1kyVrVEmyir2eEMiws1S8JXEWfOjYXTiH9j7PQiLzbQM6WiowpNaa/UQmH2jYYByn5XmvqG/u0GWDLkgxWxfTaz1vlBHnAc1IhLV276QBqcR+ndoOuoGesFGR/M4/GmPFxSGgNHnUI2jH/2wcfR64jlq/UURi8HBj5xdGTlXgvd+5opB7usihWeMnFt8UPVn2Q/dEzxDV7QGmMio89NtFSHKKUNwkY/YacaN6vD2oqApp1Ls9ZMDL+Zb+0Ug/2aB9H0QPQHMMbCMUiXFwgd7U/6TU5IqGbXFN4nL/SysTx7CI9AG9ezIpDTfh1mzpRQHtuNQoMHCuxMcIKoSvsfG76lDfx2YMDjpy4a+nr1OXuQm4fhfOoxqEFY5McRuJGDgOXF+IC/g1jD0q5/GNESa1tAWO05jRvkjkAUHb3SOP8wHkD6/ZMJtBA9wB6D5oajtLbLNeqbAxSfXQzfIjMa9UqGuiCPaZQJOKNdLjbxhTXR05EG38ma7wi6sPYXbywkDcmJIvqVY19rkYw=
       file: dist/*
       skip_cleanup: true
