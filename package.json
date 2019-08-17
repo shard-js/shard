@@ -1,9 +1,12 @@
 {
   "name": "@shards/shard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "builder for @shard-js libraries",
   "bin": "src/shard.js",
   "main": "src/shard.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "jest",
     "lint": "standard src/**/**.js"
