@@ -1,0 +1,33 @@
+{
+  "name": "@shards/shard",
+  "version": "1.0.0",
+  "description": "builder for @shard-js libraries",
+  "bin": "src/shard.js",
+  "main": "src/shard.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "standard src/**/**.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shard-js/shard.git"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "Parasrah",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shard-js/shard/issues"
+  },
+  "homepage": "https://github.com/shard-js/shard#readme",
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "standard": "^13.1.0"
+  },
+  "dependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "webpack": "^4.39.2",
+    "yargs": "^13.3.0"
+  }
+}
